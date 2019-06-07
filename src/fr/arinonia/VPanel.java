@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import org.jasypt.util.text.BasicTextEncryptor;
+
 import fr.arinonia.auth.Auth;
 import fr.arinonia.ram.RamFrame;
 import fr.arinonia.utils.Config;
@@ -29,10 +31,14 @@ import fr.theshark34.swinger.textured.STexturedButton;
 @SuppressWarnings("serial")
 public class VPanel extends JPanel implements SwingerEventListener {
 
+	
+	
+	BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
+	
 	private Image image = getResource("overlay.png");
 	Config config = new Config("config");
-	public JTextField usernameField = new JTextField(config.get("username"));
-	public JPasswordField passwordField = new JPasswordField(config.get("password"));
+	public JTextField usernameField; 
+	public JPasswordField passwordField;
 	private STexturedButton quitButton = new STexturedButton(getResource("close.png"), getResource("close.png"));
 	private STexturedButton discordButton = new STexturedButton(getResource("discord.png"), getResource("discord.png"));
 	private STexturedButton teamspeakButton = new STexturedButton(getResource("teamspeak.png"),
@@ -44,6 +50,9 @@ public class VPanel extends JPanel implements SwingerEventListener {
 	private STexturedButton ramButton = new STexturedButton(getResource("option.png"), getResource("option.png"));
 
 	public VPanel() {
+    	basicTextEncryptor.setPasswordCharArray("dhnsjf45".toCharArray());
+    	usernameField = new JTextField(basicTextEncryptor.decrypt(config.get("username")));
+    	passwordField = new JPasswordField(basicTextEncryptor.decrypt(config.get("password")));
 		setLayout(null);
 		setBackground(new Color(255, 255, 255, 0));
 		usernameField.setForeground(new Color(0, 0, 0));

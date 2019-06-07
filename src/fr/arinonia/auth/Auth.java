@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import org.jasypt.util.text.BasicTextEncryptor;
+
 import fr.arinonia.Main;
 import fr.arinonia.VPanel;
 import fr.arinonia.home.HomeFrame;
@@ -18,7 +20,8 @@ import fr.northenflo.auth.mineweb.utils.TypeConnection;
 public class Auth {
 
 	private VPanel panel;
-	
+	BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
+
 	public Auth(VPanel panel) {
 		this.panel = panel;
 	}
@@ -58,8 +61,9 @@ public class Auth {
 					e.printStackTrace();
 				}
                 if(AuthMineweb.isConnected()) {
-                	panel.getConfig().put("username", panel.usernameField.getText());
-                	panel.getConfig().put("password", panel.passwordField.getText());
+                	basicTextEncryptor.setPasswordCharArray("dhnsjf45".toCharArray());
+                	panel.getConfig().put("username", basicTextEncryptor.encrypt(panel.usernameField.getText()));
+                	panel.getConfig().put("password", basicTextEncryptor.encrypt(panel.passwordField.getText()));
                 	
                 	Main.getInstance().setVisible(false);
                 	new HomeFrame();

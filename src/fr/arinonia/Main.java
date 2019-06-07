@@ -1,6 +1,8 @@
 package fr.arinonia;
 
+
 import javax.swing.JFrame;
+
 
 import fr.arinonia.utils.LauncherManager;
 import fr.theshark34.swinger.Swinger;
@@ -35,15 +37,19 @@ public class Main extends JFrame {
 		Swinger.setSystemLookNFeel();
 		System.setProperty("http.agent", "Chrome");
 		Swinger.setResourcePath("/fr/arinonia/res");
-		if(!LauncherManager.DIR.exists())LauncherManager.DIR.mkdirs();
+		if (!LauncherManager.DIR.exists())
+			LauncherManager.DIR.mkdirs();
 		instance = new Main();
+		
+		
 	}
 
 	public static Main getInstance() {
 		return instance;
 	}
+
 	public VPanel getPanel() {
 		return panel;
 	}
-	
+
 }
